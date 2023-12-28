@@ -32,3 +32,15 @@ class HolidayPageTests:
         except Exception as e:
             error_message = e.args[0] if e.args else "No error message provided"
             pytest.fail(f"Test failed: {error_message}")
+
+    def open_login_page(self):
+        try:
+            login_button_toolbar = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH, "//*[@id='header']/header/div/div/div[1]/div/div[2]/a[3]/span[2]"))
+            )
+
+            login_button_toolbar.click()
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
