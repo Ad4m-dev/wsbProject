@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+import screenMaker
 
 
 class HolidayPageTests:
@@ -41,6 +42,27 @@ class HolidayPageTests:
             )
 
             login_button_toolbar.click()
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
+
+    def missing_email(self):
+        try:
+            submit_button = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@id='content']/div/div/div/div/div[1]/div/form/button"))
+            )
+            submit_button.click()
+
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
+
+    def is_missing_email_failed(self):
+        try:
+            # Check if the message about invalid login details is visible.
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//div[text()='Wpisz poprawny adres e-mail.']")))
+            screenMaker.make_screenshot(self.driver, 'check_if_missing_email_failed')
         except Exception as e:
             error_message = e.args[0] if e.args else "No error message provided"
             pytest.fail(f"Test failed: {error_message}")

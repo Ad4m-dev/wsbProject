@@ -16,3 +16,10 @@ def browser():
 def test_open_page(browser):
     browser.open_page()
     browser.accept_rodo_agreement()
+
+
+# Test try to log without email
+def test_login_without_email(browser):
+    browser.open_login_page()
+    browser.missing_email()
+    browser.is_missing_email_failed()
