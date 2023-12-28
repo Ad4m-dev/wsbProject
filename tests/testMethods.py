@@ -46,6 +46,23 @@ class HolidayPageTests:
             error_message = e.args[0] if e.args else "No error message provided"
             pytest.fail(f"Test failed: {error_message}")
 
+    def enter_email(self):
+        try:
+            email_input = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH, "// *[@id='username']"))
+            )
+            email_input.send_keys("example@gmail.com")
+
+            submit_button = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@id='content']/div/div/div/div/div[1]/div/form/button"))
+            )
+            submit_button.click()
+
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
+
     def missing_email(self):
         try:
             submit_button = WebDriverWait(self.driver, 10).until(
@@ -63,6 +80,27 @@ class HolidayPageTests:
             WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, "//div[text()='Wpisz poprawny adres e-mail.']")))
             screenMaker.make_screenshot(self.driver, 'check_if_missing_email_failed')
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
+
+    def missing_password(self):
+        try:
+            submit_button = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@id='content']/div/div/div/div/div/div/form/button"))
+            )
+            submit_button.click()
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
+
+    def is_missing_password_failed(self):
+        try:
+            # Check if the message about invalid login details is visible.
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@id='content']/div/div/div/div/div/div/form/div["
+                                                          "1]/div[2]/div[2]")))
+            screenMaker.make_screenshot(self.driver, 'check_if_missing_password_failed')
         except Exception as e:
             error_message = e.args[0] if e.args else "No error message provided"
             pytest.fail(f"Test failed: {error_message}")

@@ -23,3 +23,10 @@ def test_login_without_email(browser):
     browser.open_login_page()
     browser.missing_email()
     browser.is_missing_email_failed()
+
+
+# Test try to log without password
+def test_login_without_password(browser):
+    browser.enter_email()
+    browser.missing_password()
+    browser.is_missing_password_failed()
