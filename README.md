@@ -39,3 +39,6 @@ Używając pycharm upewnić się, że poniższe biblioteki zostały zainstalowan
 - pytest-html
 - pytest-metadata
 - selenium
+
+## Uruchomienie zestawu testów
+`pytest testSuite.py --html=reports/report.html`

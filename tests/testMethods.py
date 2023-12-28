@@ -179,7 +179,7 @@ class HolidayPageTests:
             error_message = e.args[0] if e.args else "No error message provided"
             pytest.fail(f"Test failed: {error_message}")
 
-    def is_content_visible(self):
+    def is_searched_content_visible(self):
         try:
             WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, "//*[@id='content']/main/div[1]/div[2]/div/div[2]/div[1]/div")))

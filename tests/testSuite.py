@@ -41,7 +41,7 @@ def test_login_with_wrong_credentials(browser):
 
 
 # Test search a travel destination using the search box
-def test_search_travels(browser):
+def test_search_destination(browser):
     browser.call_home_page()
     browser.search_destination()
-    browser.is_content_visible()
+    browser.is_searched_content_visible()
