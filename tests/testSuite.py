@@ -38,3 +38,10 @@ def test_login_with_wrong_credentials(browser):
     browser.enter_email()
     browser.enter_password()
     browser.is_login_failed()
+
+
+# Test search a travel destination using the search box
+def test_search_travels(browser):
+    browser.call_home_page()
+    browser.search_destination()
+    browser.is_content_visible()

@@ -141,3 +141,49 @@ class HolidayPageTests:
         except Exception as e:
             error_message = e.args[0] if e.args else "No error message provided"
             pytest.fail(f"Test failed: {error_message}")
+
+    def search_destination(self):
+        try:
+            # Pass phrase to search filed
+            search_input = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH, "//*[@id='search']"))
+            )
+            search_input.send_keys("Egipt")
+
+            # Accept searching phrase in poplist
+            searching_poplist = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH, "//*[@id='search-downshift-item-0']"))
+            )
+            searching_poplist.click()
+
+            # Select "All Inclusive" option
+            button_all_inclusive = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH, "//*[@id='content']/main/div[2]/div/div[1]/div/div/div[1]/div/a[3]/span[1]")))
+            button_all_inclusive.click()
+
+            WebDriverWait(self.driver, 10).until(EC.number_of_windows_to_be(2))
+
+            # This variable is set to handle switching the webdriver to the newly opened tab
+            current_window_handle = self.driver.current_window_handle
+
+            # Find the handle of the newly opened tab
+            new_window_handle = [handle for handle in self.driver.window_handles if handle != current_window_handle][0]
+
+            # Switch to the newly opened tab
+            self.driver.switch_to.window(new_window_handle)
+
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
+
+    def is_content_visible(self):
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@id='content']/main/div[1]/div[2]/div/div[2]/div[1]/div")))
+            screenMaker.make_screenshot(self.driver, 'check_if_content_is_visible')
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
