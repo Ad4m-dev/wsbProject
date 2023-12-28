@@ -30,3 +30,11 @@ def test_login_without_password(browser):
     browser.enter_email()
     browser.missing_password()
     browser.is_missing_password_failed()
+
+
+def test_login_with_wrong_credentials(browser):
+    browser.call_home_page()
+    browser.open_login_page()
+    browser.enter_email()
+    browser.enter_password()
+    browser.is_login_failed()

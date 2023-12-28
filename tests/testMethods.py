@@ -104,3 +104,40 @@ class HolidayPageTests:
         except Exception as e:
             error_message = e.args[0] if e.args else "No error message provided"
             pytest.fail(f"Test failed: {error_message}")
+
+    def call_home_page(self):
+        try:
+            # Click on webpage logo to call home page
+            tui_logo = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@id='header']/header/div/div/div[1]/div/div[1]/div/a[1]")))
+            tui_logo.click()
+
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
+
+    def enter_password(self):
+        try:
+            password_input = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.XPATH, "//*[@id='password']"))
+            )
+            password_input.send_keys("1234")
+
+            submit_button = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@id='content']/div/div/div/div/div/div/form/button"))
+            )
+            submit_button.click()
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
+
+    def is_login_failed(self):
+        try:
+            # Check if the message about invalid login details is visible.
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@id='content']/div/div/div/div/div[1]/div[1]")))
+            screenMaker.make_screenshot(self.driver, 'check_if_login_failed')
+        except Exception as e:
+            error_message = e.args[0] if e.args else "No error message provided"
+            pytest.fail(f"Test failed: {error_message}")
